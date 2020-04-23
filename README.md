@@ -1,2 +1,1 @@
-# padma-yoga-api
-Padma Yoga - API Project
+# Padma Yoga - API Project
