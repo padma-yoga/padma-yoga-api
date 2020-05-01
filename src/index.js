@@ -5,9 +5,9 @@ import routesList from './router'
 
 dotenv.config()
 
-const { DATABASE, PORT } = process.env
+const { CONNECTION_STRING, PORT } = process.env
 
-const database = startDatabase(DATABASE)
+const database = startDatabase(CONNECTION_STRING)
 const server = startServer(PORT, routesList)
 
 export default { server, database }
