@@ -1,4 +1,4 @@
-import userRoute from './userRoute'
+import userRoute from './routes/userRoutes'
 
 const routesList = [userRoute]
 

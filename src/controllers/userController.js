@@ -7,7 +7,7 @@ async function create(req, res) {
       name: req.body.name,
       email: req.body.email,
       surname: req.body.surname,
-      role: ['admin'],
+      role: req.body.role,
       password: md5(req.body.password, process.env.SALT_KEY),
     })
     return res.status(201).send({ message: 'User created with success!' })
@@ -39,7 +39,7 @@ async function getById(req, res) {
   }
 }
 
-async function del(req, res) {
+async function deleteById(req, res) {
   try {
     await userModel.findByIdAndRemove(req.params.id)
 
@@ -65,4 +65,4 @@ async function update(req, res) {
   }
 }
 
-export default { create, get, getById, del, update }
+export default { create, get, getById, deleteById, update }
