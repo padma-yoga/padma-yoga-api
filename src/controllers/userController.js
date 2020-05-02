@@ -3,7 +3,7 @@ import userModel from '../models/userModel'
 
 async function getAll(req, res) {
   try {
-    const data = await userModel.find({}, 'email role')
+    const data = await userModel.find({}, 'email roles')
 
     return res.status(200).send(data)
   } catch (error) {
@@ -25,7 +25,7 @@ async function create(req, res) {
   try {
     await userModel.create({
       email: req.body.email,
-      role: req.body.role,
+      roles: req.body.roles,
       password: md5(req.body.password, process.env.SALT_KEY),
     })
 
