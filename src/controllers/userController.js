@@ -1,7 +1,8 @@
 import md5 from 'md5'
 import userModel from '../models/userModel'
+import send from '../services/emailService'
 
-async function create(req, res) {
+async function signup(req, res) {
   try {
     await userModel.create({
       name: req.body.name,
@@ -9,7 +10,7 @@ async function create(req, res) {
       role: req.body.role,
       password: md5(req.body.password, process.env.SALT_KEY),
     })
-
+    await send(req, res)
     return res.status(201).send({ message: 'User created with success!' })
   } catch (error) {
     return res.status(201).send({ message: 'ERROR. user not created' })
@@ -65,4 +66,4 @@ async function update(req, res) {
   }
 }
 
-export default { create, get, getById, deleteById, update }
+export default { signup, get, getById, deleteById, update }

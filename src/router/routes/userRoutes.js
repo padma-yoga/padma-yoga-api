@@ -5,7 +5,7 @@ const router = new Router()
 const prefix = '/users'
 
 const userRouteList = [
-  router.post(`${prefix}`, userController.create),
+  router.post(`${prefix}/signup`, userController.signup),
   router.get(`${prefix}`, userController.get),
   router.get(`${prefix}/:id`, userController.getById),
   router.delete(`${prefix}/:id`, userController.deleteById),
