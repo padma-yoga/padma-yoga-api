@@ -4,7 +4,7 @@ import userController from '../../controllers/userController'
 const router = new Router()
 const prefix = '/users'
 
-const userRouteList = [
+const userRoutes = [
   router.post(`${prefix}`, userController.create),
   router.get(`${prefix}`, userController.getAll),
   router.get(`${prefix}/:id`, userController.getById),
@@ -12,4 +12,4 @@ const userRouteList = [
   router.put(`${prefix}/:id`, userController.update),
 ]
 
-export default userRouteList
+export default userRoutes

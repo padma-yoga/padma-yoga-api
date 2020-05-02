@@ -15,5 +15,10 @@
   },
   "rules": {
     "prettier/prettier": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": { "moduleDirectory": ["node_modules", "src/"] }
+    }
   }
 }
