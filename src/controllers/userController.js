@@ -6,13 +6,13 @@ async function create(req, res) {
     await userModel.create({
       name: req.body.name,
       email: req.body.email,
-      surname: req.body.surname,
       role: req.body.role,
       password: md5(req.body.password, process.env.SALT_KEY),
     })
+
     return res.status(201).send({ message: 'User created with success!' })
   } catch (error) {
-    return res.status(201).send({ message: 'ERROR. not created' })
+    return res.status(201).send({ message: 'ERROR. user not created' })
   }
 }
 

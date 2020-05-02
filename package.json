@@ -16,6 +16,7 @@
   "author": "Rodrigo Avellar de Muniagurria",
   "homepage": "https://github.com/padma-yoga/padma-yoga-api#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.1.0",
     "dotenv": "^8.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.3",
