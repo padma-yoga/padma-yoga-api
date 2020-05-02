@@ -13,7 +13,7 @@ async function getAll(req, res) {
 
 async function getById(req, res) {
   try {
-    const data = await userModel.findOne({ _id: req.params.id }, 'email role')
+    const data = await userModel.findOne({ _id: req.params.id }, 'email roles')
 
     return res.status(200).send(data)
   } catch (error) {
