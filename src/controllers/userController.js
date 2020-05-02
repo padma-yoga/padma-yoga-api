@@ -4,7 +4,6 @@ import userModel from '../models/userModel'
 async function create(req, res) {
   try {
     await userModel.create({
-      name: req.body.name,
       email: req.body.email,
       role: req.body.role,
       password: md5(req.body.password, process.env.SALT_KEY),
@@ -16,9 +15,9 @@ async function create(req, res) {
   }
 }
 
-async function get(req, res) {
+async function getAll(req, res) {
   try {
-    const data = await userModel.find({}, 'name surname email role')
+    const data = await userModel.find({}, 'email role')
 
     return res.status(200).send(data)
   } catch (error) {
@@ -28,10 +27,7 @@ async function get(req, res) {
 
 async function getById(req, res) {
   try {
-    const data = await userModel.findById(
-      req.params.id,
-      'name surname email role'
-    )
+    const data = await userModel.findOne({ _id: req.params.id }, 'email role')
 
     return res.status(200).send(data)
   } catch (error) {
@@ -41,7 +37,7 @@ async function getById(req, res) {
 
 async function deleteById(req, res) {
   try {
-    await userModel.findByIdAndRemove(req.params.id)
+    await userModel.findOneAndDelete({ _id: req.params.id })
 
     return res.status(200).send({ message: 'usuario deletado com sucesso!' })
   } catch (error) {
@@ -51,10 +47,8 @@ async function deleteById(req, res) {
 
 async function update(req, res) {
   try {
-    await userModel.findByIdAndUpdate(req.params.id, req.body, {
+    await userModel.findOneAndUpdate(req.params.id, req.body, {
       $set: {
-        name: req.body.name,
-        surname: req.body.surname,
         email: req.body.email,
         role: req.body.role,
       },
@@ -65,4 +59,4 @@ async function update(req, res) {
   }
 }
 
-export default { create, get, getById, deleteById, update }
+export default { create, getAll, getById, deleteById, update }
