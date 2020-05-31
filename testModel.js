@@ -1,7 +1,11 @@
 import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
-  roles: {
+  name: {
+    type: String,
+    required: true,
+  },
+  surname: {
     type: String,
     required: true,
   },
