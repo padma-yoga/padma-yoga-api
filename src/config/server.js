@@ -1,13 +1,13 @@
 import express from 'express'
-import dotenv from 'dotenv'
+import cors from 'cors'
 
 function startServer(port, routes) {
-  dotenv.config()
   if (!port) throw Error(`Port is required to start server`)
   if (!routes) throw Error(`Routes is required to start server`)
 
   const app = express()
   app.use(express.json())
+  app.use(cors())
   app.use('/', routes)
   app.listen(port, () =>
     // eslint-disable-next-line no-console
