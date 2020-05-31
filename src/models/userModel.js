@@ -12,10 +12,6 @@ const schema = new Schema({
     trim: true,
     required: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
   roles: [
     {
       type: String,
