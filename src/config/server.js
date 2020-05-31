@@ -1,6 +1,8 @@
 import express from 'express'
+import dotenv from 'dotenv'
 
 function startServer(port, routes) {
+  dotenv.config()
   if (!port) throw Error(`Port is required to start server`)
   if (!routes) throw Error(`Routes is required to start server`)
 
