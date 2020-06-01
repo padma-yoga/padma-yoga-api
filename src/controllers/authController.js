@@ -12,7 +12,7 @@ async function register(req, res) {
 
     await userModel.create({
       email: req.body.email,
-      roles: req.body.roles,
+      roles: 'user',
       password: md5(req.body.password + process.env.SALT_KEY),
     })
 
