@@ -27,20 +27,21 @@ async function register(req, res) {
 
 async function login(req, res) {
   try {
-    const data = await userModel.find({
+    // TODO: Here we will call a validation service
+
+    const data = await userModel.findOne({
       email: req.body.email,
       password: md5(req.body.password + process.env.SALT_KEY),
     })
 
     if (!data)
-      return res.status(401).json({ ERROR: 'Usuario ou senha invalidos!' })
+      return res.status(400).send({ message: 'Email ou senha inválidos!' })
 
-    console.log(`Data : ${data}`)
     return res
       .status(200)
-      .send({ message: 'Login efetuado com sucesso!', data: data })
+      .send({ message: 'Login efetuado com sucesso!', data })
   } catch (error) {
-    return res.status(401).send({ message: 'ERRO no Login!' })
+    return res.status(400).send({ message: 'ERRO do serviodor!' })
   }
 }
 
