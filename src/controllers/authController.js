@@ -8,12 +8,12 @@ async function register(req, res) {
   try {
     const errorList = await registerValidations(req.body)
 
-    if (errorList.length) return res.status(400).send({ errors: errorList })
+    if (errorList.length) return res.status(401).send({ errors: errorList })
 
     await userModel.create({
       email: req.body.email,
-      roles: 'user',
-      password: md5(req.body.password + process.env.SALT_KEY),
+      roles: req.body.roles,
+      password: md5(req.body.password, process.env.SALT_KEY),
     })
 
     return res.status(201).send({ message: 'Usuário criado com sucesso!' })

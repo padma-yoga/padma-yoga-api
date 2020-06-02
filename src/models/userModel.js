@@ -3,9 +3,14 @@ import { Schema, model } from 'mongoose'
 const schema = new Schema({
   email: {
     type: String,
+    trim: true,
     required: true,
     unique: true,
-    index: true,
+  },
+  password: {
+    type: String,
+    trim: true,
+    required: true,
   },
   password: {
     type: String,

@@ -4,13 +4,9 @@
   "description": "Padma Yoga API Project",
   "main": "src/index.js",
   "scripts": {
-
     "start": "NODE_ENV=development node dist",
-
-   
-
     "dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
-    "build": "babel src -d dist && NODE_ENV=development node dist",
+    "build": "babel src -d dist",
     "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
   "repository": {
