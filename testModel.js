@@ -1,6 +1,14 @@
 import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  surname: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -11,13 +19,6 @@ const schema = new Schema({
     type: String,
     required: true,
   },
-  roles: [
-    {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
-  ],
 })
 
 export default model('userModel', schema)

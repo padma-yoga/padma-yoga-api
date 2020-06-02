@@ -2,7 +2,7 @@ import userModel from '../models/userModel'
 
 async function getAll(req, res) {
   try {
-    const data = await userModel.find({}, 'email roles')
+    const data = await userModel.find({}, 'email roles passsword')
 
     return res.status(200).send(data)
   } catch (error) {
