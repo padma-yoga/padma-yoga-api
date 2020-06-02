@@ -8,7 +8,7 @@ async function register(req, res) {
   try {
     const errorList = await registerValidations(req.body)
 
-    if (errorList.length) return res.status(401).send({ errors: errorList })
+    if (errorList.length) return res.status(400).send({ errors: errorList })
 
     await userModel.create({
       email: req.body.email,
@@ -18,7 +18,7 @@ async function register(req, res) {
 
     return res.status(201).send({ message: 'Usuário criado com sucesso!' })
   } catch (error) {
-    return res.status(401).send({
+    return res.status(500).json({
       message:
         'Não foi possível criar o usuário. Tente novamente ou entre em contato!',
     })
@@ -41,7 +41,7 @@ async function login(req, res) {
       .status(200)
       .send({ message: 'Login efetuado com sucesso!', data })
   } catch (error) {
-    return res.status(400).send({ message: 'ERRO do serviodor!' })
+    return res.status(500).send({ message: 'ERRO do serviodor!' })
   }
 }
 
