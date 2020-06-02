@@ -1,28 +1,24 @@
 import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  surname: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
-    trim: true,
     required: true,
     unique: true,
-  },
-  password: {
-    type: String,
-    trim: true,
-    required: true,
+    index: true,
   },
   password: {
     type: String,
     required: true,
   },
-  roles: [
-    {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
-  ],
 })
 
 export default model('userModel', schema)

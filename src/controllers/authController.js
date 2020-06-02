@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
 import md5 from 'md5'
 import userModel from '../models/userModel'
 import { registerValidations } from '../validations/auth'
@@ -16,15 +18,31 @@ async function register(req, res) {
 
     return res.status(201).send({ message: 'Usuário criado com sucesso!' })
   } catch (error) {
-    return res.status(401).send({
+    return res.status(500).json({
       message:
         'Não foi possível criar o usuário. Tente novamente ou entre em contato!',
     })
   }
 }
 
-async function login() {
-  // TODO
+async function login(req, res) {
+  try {
+    // TODO: Here we will call a validation service
+
+    const data = await userModel.findOne({
+      email: req.body.email,
+      password: md5(req.body.password + process.env.SALT_KEY),
+    })
+
+    if (!data)
+      return res.status(400).send({ message: 'Email ou senha inválidos!' })
+
+    return res
+      .status(200)
+      .send({ message: 'Login efetuado com sucesso!', data })
+  } catch (error) {
+    return res.status(500).send({ message: 'ERRO do serviodor!' })
+  }
 }
 
 export default { register, login }
