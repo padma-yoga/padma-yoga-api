@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable consistent-return */
+import jwt from 'jsonwebtoken'
 import md5 from 'md5'
 import userModel from '../models/userModel'
 import { registerValidations } from '../validations/auth'
@@ -24,24 +25,31 @@ async function register(req, res) {
     })
   }
 }
+async function generateToken(data) {
+  const token = jwt.sign(data, process.env.SALT_KEY, { expiresIn: '1d' })
 
+  return token
+}
 async function login(req, res) {
   try {
     // TODO: Here we will call a validation service
 
-    const data = await userModel.findOne({
+    const user = await userModel.findOne({
       email: req.body.email,
-      password: md5(req.body.password + process.env.SALT_KEY),
+      password: md5(req.body.password, process.env.SALT_KEY),
     })
 
-    if (!data)
+    if (!user)
       return res.status(400).send({ message: 'Email ou senha inválidos!' })
 
-    return res
-      .status(200)
-      .send({ message: 'Login efetuado com sucesso!', data })
+    const token = await generateToken({
+      email: req.body.email,
+      password: req.body.password,
+    })
+
+    return res.status(200).send({ user, token })
   } catch (error) {
-    return res.status(500).send({ message: 'ERRO do serviodor!' })
+    return res.status(500).send({ message: 'ERRO do servidor!' })
   }
 }
 
