@@ -31,6 +31,13 @@ export async function registerValidations(data) {
   return errors
 }
 
-export async function loginValidations() {
-  // TODO
+export async function loginValidations(data) {
+  const errors = []
+
+  const { email, password } = data
+  if (!email) errors.push('Email obrigatório')
+  if (!isEmail(email)) errors.push('Email inválido')
+  if (!password) errors.push('Senha obrigatória')
+
+  return errors
 }

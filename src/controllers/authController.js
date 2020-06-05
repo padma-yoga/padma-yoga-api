@@ -3,7 +3,7 @@
 import jwt from 'jsonwebtoken'
 import md5 from 'md5'
 import userModel from '../models/userModel'
-import { registerValidations } from '../validations/auth'
+import { registerValidations, loginValidations } from '../validations/auth'
 
 async function register(req, res) {
   try {
@@ -25,14 +25,18 @@ async function register(req, res) {
     })
   }
 }
+
 async function generateToken(data) {
   const token = jwt.sign(data, process.env.SALT_KEY, { expiresIn: '1d' })
 
   return token
 }
+
 async function login(req, res) {
   try {
-    // TODO: Here we will call a validation service
+    const errorList = await loginValidations(req.body)
+
+    if (errorList.length) return res.status(401).send({ message: errorList })
 
     const user = await userModel.findOne({
       email: req.body.email,
